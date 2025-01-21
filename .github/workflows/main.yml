@@ -60,12 +60,11 @@ jobs:
       # Build the Docker image
       - name: Build Docker image
         run: |
-          docker build -t my-node-app:latest .
+          docker build -t ramanath17/new-nodejs-app:latest .
 
       # Push the Docker image to Docker Hub (or any container registry)
       - name: Push Docker image to Docker Hub
         run: |
-          docker tag my-node-app:latest ${{ secrets.DOCKER_USERNAME }}/my-node-app:latest
-          docker push ${{ secrets.DOCKER_USERNAME }}/my-node-app:latest
+          docker push ramanath17/new-nodejs-app:latest
 
       # Optional: Add deployment steps here if needed
