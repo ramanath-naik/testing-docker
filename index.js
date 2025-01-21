@@ -16,7 +16,7 @@ app.get('/about', (req, res) => {
   });
 
   app.get('/test', (req, res) => {
-    res.send('New page after ci and cd');
+    res.send('New page after Continuos Integration and Deployment');
   });
 
 // Start the server
