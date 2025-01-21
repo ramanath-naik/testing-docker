@@ -75,6 +75,12 @@ jobs:
       - name: Pull image from Docker Hub
         run: docker pull ramanath17/new-nodejs-app:latest
 
+      - name: List all containers
+        run: docker ps -a
+
+      - name: List all containers
+        run: docker stop my-node-app-container
+
       - name: Delete old container
         run: docker rm -f my-node-app-container
 
