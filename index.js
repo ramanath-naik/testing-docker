@@ -15,9 +15,9 @@ app.get('/about', (req, res) => {
     res.send('Contact Page');
   });
 
-  app.get('/new', (req, res) => {
-    res.send('New page after ci and cd');
-  });
+  // app.get('/new', (req, res) => {
+  //   res.send('New page after ci and cd');
+  // });
 
 // Start the server
 app.listen(port, () => {
