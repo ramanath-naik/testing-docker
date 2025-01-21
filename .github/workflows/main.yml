@@ -70,20 +70,23 @@ jobs:
   # Deploy the application        
   deploy:
     needs: build
-    runs-on: ubuntu-latest
+    runs-on: self-hosted
+
     steps:
+      - name: Log in to Docker Hub
+        uses: docker/login-action@v3
+        with:
+          username: ${{ secrets.DOCKER_USERNAME }}
+          password: ${{ secrets.DOCKER_PASSWORD }}
+
       - name: Pull image from Docker Hub
-        run: docker pull ramanath17/new-nodejs-app:latest
+        run: |
+          docker pull ramanath17/new-nodejs-app:latest
 
-      - name: List all containers
-        run: docker ps -a
+      - name: Check Docker Images
+        run: docker images
 
-      - name: List all containers
-        run: docker stop my-node-app-container
-
-      - name: Delete old container
-        run: docker rm -f my-node-app-container
-
-      - name: Run docker container
-        run: docker run -d -p 5000:3002 --name my-node-app-container ramanath17/new-nodejs-app:latest
+      - name: Run Docker container
+        run: |
+          docker run -d -p 5000:3002 --name my-node-app-container ramanath17/new-nodejs-app:latest
 
