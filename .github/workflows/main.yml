@@ -67,22 +67,17 @@ jobs:
         run: |
           docker push ramanath17/new-nodejs-app:latest
 
-      # Deploy the application
-      - name: Deploy Application
-        run: |
-          # Pull the latest image
-          docker pull ramanath17/new-nodejs-app:latest
+  # Deploy the application        
+  deploy:
+    needs: build
+    runs-on: self-hosted
+    steps:
+      - name: Pull image from Docker Hub
+        run: docker pull ramanath17/new-nodejs-app:latest
 
-          # Check if the container exists by matching the container name
-          container_id=$(docker ps -aq -f name=my-node-app-container)
-          if [ -n "$container_id" ]; then
-            echo "Stopping and removing existing container..."
-            docker stop my-node-app-container || true
-            docker rm my-node-app-container || true
-          else
-            echo "No existing container found, proceeding to create a new one."
-          fi
+      - name: Delete old container
+        run: docker rm -f my-node-app-container
 
-          # Run the updated container
-          docker run -d --name my-node-app-container -p 5000:3002 ramanath17/new-nodejs-app:latest
+      - name: Run docker container
+        run: docker run -d -p 5000:3002 --name my-node-app-container ramanath17/new-nodejs-app:latest
 
